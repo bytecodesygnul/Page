@@ -1,0 +1,52 @@
+import React, { useState } from "react";
+
+// Page List App Template
+const initialPages = [
+  { id: 1, name: "Home" },
+  { id: 2, name: "About" },
+  { id: 3, name: "Contact" }
+];
+
+export default function CreatePage() {
+  const [pages, setPages] = useState(initialPages);
+  const [newPageName, setNewPageName] = useState("");
+
+  const handleAddPage = () => {
+    if (newPageName.trim()) {
+      setPages([
+        ...pages,
+        { id: pages.length + 1, name: newPageName.trim() }
+      ]);
+      setNewPageName("");
+    }
+  };
+
+  return (
+    <div style={{ maxWidth: 600, margin: "2rem auto", padding: "1rem", border: "1px solid #ccc", borderRadius: 8 }}>
+      <h2>Project: Page List App</h2>
+      <div style={{ marginBottom: "1rem" }}>
+        <label>
+          <strong>Add a new page:</strong>
+          <input
+            type="text"
+            value={newPageName}
+            onChange={e => setNewPageName(e.target.value)}
+            placeholder="Page name"
+            style={{ marginLeft: 10, padding: "0.25rem" }}
+          />
+        </label>
+        <button onClick={handleAddPage} style={{ marginLeft: 10, padding: "0.25rem 1rem" }}>
+          Add
+        </button>
+      </div>
+      <div>
+        <h3>Page Name List</h3>
+        <ul>
+          {pages.map(page => (
+            <li key={page.id}>{page.name}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
